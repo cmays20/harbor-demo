@@ -16,9 +16,19 @@ openssl req \
 ```
 <b>NOTE:</b> Be sure to use the name `harbordomain.com` as a CN
 
-### 2. Create secret in Kubernetes
+### 2. Create the harbor-system namespace
+```bash
+kubectl create ns harbor-system
+```
+
+### 3. Create secret in Kubernetes
 ```bash
 kubectl -n harbor-system create secret tls tls-harbor-ingress \
   --cert=certs/domain.crt \
   --key=certs/domain.key
+```
+
+### 4. Install Harbor using helm
+```bash
+helm install -f harbor-config.yaml --name harbor harbor/harbor
 ```
